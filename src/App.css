@@ -1,6 +1,23 @@
+:root {
+    /* Changing colors */
+    --board-bg: #bbada0;
+    --cell-0-bg: #f4f2a0;
+    --cell-2-bg: #e1e882;
+    --cell-4-bg: #d9ed92;
+    --cell-8-bg: #b5e48c;
+    --cell-16-bg: #99d98c;
+    --cell-32-bg: #76c893;
+    --cell-64-bg: #52b69a;
+    --cell-128-bg: #34a0a4;
+    --cell-256-bg: #168aad;
+    --cell-512-bg: #1a759f;
+    --cell-1024-bg: #1e6091;
+    --cell-2048-bg: #184e77;
+}
+
 body {
     font-family: "Segoe UI", sans-serif;
-    background: #f4f3f3;
+    background: #755b5b;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -18,7 +35,7 @@ h1 {
 
 .board {
     display: inline-block;
-    background: #bbada0;
+    background: var(--board-bg);
     padding: 10px;
     border-radius: 10px;
 }
@@ -30,7 +47,7 @@ h1 {
 .cell {
     width: 80px;
     height: 80px;
-    background: #cdc1b4;
+    background: var(--cell-0-bg);
     margin: 5px;
     font-size: 24px;
     font-weight: bold;
@@ -42,56 +59,57 @@ h1 {
 }
 
 .cell-0 {
-    background: #cdc1b4;
     color: transparent;
+    color: var(--cell-0-bg);
 }
 .cell-2 {
-    background: #eee4da;
+    background: var(--cell-2-bg);
     color: #776e65;
 }
 .cell-4 {
-    background: #ede0c8;
+    background: var(--cell-4-bg);
     color: #776e65;
 }
 .cell-8 {
-    background: #f2b179;
+    background: var(--cell-8-bg);
     color: white;
 }
 .cell-16 {
-    background: #f59563;
+    background: var(--cell-16-bg);
     color: white;
 }
 .cell-32 {
-    background: #f67c5f;
+    background: var(--cell-32-bg);
     color: white;
 }
 .cell-64 {
-    background: #f65e3b;
+    background: var(--cell-64-bg);
     color: white;
 }
 .cell-128 {
-    background: #edcf72;
+    background: var(--cell-128-bg);
     color: white;
 }
 .cell-256 {
-    background: #edcc61;
+    background: var(--cell-256-bg);
     color: white;
 }
 .cell-512 {
-    background: #edc850;
+    background: var(--cell-512-bg);
     color: white;
 }
 .cell-1024 {
-    background: #edc53f;
+    background: var(--cell-1024-bg);
     color: white;
 }
 .cell-2048 {
-    background: #edc22e;
+    background: var(--cell-2048-bg);
     color: white;
 }
 
 .game-over {
-    font-size: 24px;
+    font-size: 30px;
+    font-weight: 800;
     color: red;
     margin-top: 15px;
 }
