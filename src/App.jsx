@@ -21,9 +21,21 @@ const addTile = (board) => {
     board[tile[0]][tile[1]] = Math.random() >= 0.9 ? 4 : 2;
     return board;
 };
+// **************** tasks *********************
+
+// compress, merge, transpose, reverse
+const compress = () => {};
+const merge = () => {};
+const transpose = () => {};
+const reverse = () => {};
 
 // shifting logic
 const onLeft = (board) => {};
+const onRight = (board) => {};
+const onUp = (board) => {};
+const onDown = (board) => {};
+
+// ***********************************************
 export default function App() {
     const [board, setBoard] = useState(() => {
         let b = generateBoard();
@@ -41,12 +53,16 @@ export default function App() {
         const key = e.key;
         if (key === "ArrowUp" || key === "w") {
             // handle logic for up
+            onUp(board);
         } else if (key === "ArrowDown" || key === "s") {
             // handle logic for down
+            onDown(board);
         } else if (key === "ArrowLeft" || key === "a") {
             // handle logic for left
+            onLeft(board);
         } else if (key === "ArrowRight" || key === "d") {
             // handle logic for right
+            onRight(board);
         } else return;
 
         // handle remaining tasks
