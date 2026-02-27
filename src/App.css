@@ -60,7 +60,7 @@ h1 {
 
 .cell-0 {
     color: transparent;
-    color: var(--cell-0-bg);
+    background-color: var(--cell-0-bg);
 }
 .cell-2 {
     background: var(--cell-2-bg);

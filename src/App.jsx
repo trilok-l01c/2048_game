@@ -68,7 +68,7 @@ const reverse = (board) => board.map((row) => [...row].reverse());
 
 // shifting logic
 const onLeft = (board) => {
-    const newboard = compress(board);
+    let newboard = compress(board);
     newboard = merge(newboard);
     newboard = compress(newboard);
     return newboard;
@@ -76,21 +76,22 @@ const onLeft = (board) => {
 
 // shifting right
 const onRight = (board) => {
-    const rev = reverse(board);
+    let rev = reverse(board);
     return reverse(onLeft(rev));
 };
 
 // shifting up
 const onUp = (board) => {
-    const transposed = transpose(board);
-    const newBoard = onLeft(transposed);
+    let transposed = transpose(board);
+    let newBoard = onLeft(transposed);
     return transpose(newBoard);
 };
 
 // shifting down
 const onDown = (board) => {
-    const rev = reverse(board);
-    return rev(onUp(rev));
+    let transposed = transpose(board);
+    let newBoard = onRight(transposed);
+    return transpose(newBoard);
 };
 
 // ***********************************************
@@ -102,13 +103,10 @@ export default function App() {
         return b;
     });
     // ******** Working area *************************
-    // using useEffect
-    useEffect(() => {}, [board]);
-
     // handle key down
     const handleKeydown = (e) => {
         const key = e.key;
-        const newBoard = [];
+        let newBoard;
         if (key === "ArrowUp" || key === "w") {
             // handle logic for up
             newBoard = onUp(board);
@@ -127,7 +125,10 @@ export default function App() {
         setBoard(addTile([...newBoard]));
     };
     // ***********************************************
-    window.addEventListener("keydown", handleKeydown);
+    useEffect(() => {
+        window.addEventListener("keydown", handleKeydown);
+        return () => window.removeEventListener("keydown", handleKeydown);
+    }, []);
     return (
         <div className="container">
             <h1>2048 Board game</h1>
