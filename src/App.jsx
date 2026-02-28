@@ -12,10 +12,10 @@ const addTile = (board) => {
 
     for (let i = 0; i < N; i++) {
         for (let j = 0; j < N; j++) {
-            if (board[i][j] == "0") emptyTiles.push([i, j]);
+            if (board[i][j] == 0) emptyTiles.push([i, j]);
         }
     }
-
+    if (emptyTiles.length == 0) return board;
     const tile = emptyTiles[generateRandomNumber(emptyTiles.length)];
 
     board[tile[0]][tile[1]] = Math.random() >= 0.9 ? 4 : 2;
@@ -66,8 +66,8 @@ const transpose = (board) => {
 // left to right and right to left
 const reverse = (board) => board.map((row) => [...row].reverse());
 
-// shifting logic
-const onLeft = (board) => {
+// shifting left
+const moveLeft = (board) => {
     let newboard = compress(board);
     newboard = merge(newboard);
     newboard = compress(newboard);
@@ -75,25 +75,39 @@ const onLeft = (board) => {
 };
 
 // shifting right
-const onRight = (board) => {
+const moveRight = (board) => {
     let rev = reverse(board);
-    return reverse(onLeft(rev));
+    rev = moveLeft(rev);
+    return reverse(rev);
 };
 
 // shifting up
-const onUp = (board) => {
+const moveUp = (board) => {
     let transposed = transpose(board);
-    let newBoard = onLeft(transposed);
+    let newBoard = moveLeft(transposed);
     return transpose(newBoard);
 };
 
 // shifting down
-const onDown = (board) => {
+const moveDown = (board) => {
     let transposed = transpose(board);
-    let newBoard = onRight(transposed);
+    let newBoard = moveRight(transposed);
     return transpose(newBoard);
 };
 
+const isGameOver = () => {
+    for (let i = 0; i < N; i++) {
+        for (let j = 0; j < N; j++) {
+            if (
+                board[i][j] == 0 ||
+                (i > 0 && board[i - 1][j] == board[i][j]) ||
+                (j > 0 && board[i][j - 1] == board[i][j])
+            )
+                return false;
+        }
+    }
+    return true;
+};
 // ***********************************************
 export default function App() {
     const [board, setBoard] = useState(() => {
@@ -102,33 +116,38 @@ export default function App() {
         b = addTile(b);
         return b;
     });
+    const [gameover, setGameover] = useState(false);
     // ******** Working area *************************
     // handle key down
     const handleKeydown = (e) => {
+        if (gameover) return;
         const key = e.key;
         let newBoard;
         if (key === "ArrowUp" || key === "w") {
             // handle logic for up
-            newBoard = onUp(board);
+            newBoard = moveUp(board);
         } else if (key === "ArrowDown" || key === "s") {
             // handle logic for down
-            newBoard = onDown(board);
+            newBoard = moveDown(board);
         } else if (key === "ArrowLeft" || key === "a") {
             // handle logic for left
-            newBoard = onLeft(board);
+            newBoard = moveLeft(board);
         } else if (key === "ArrowRight" || key === "d") {
             // handle logic for right
-            newBoard = onRight(board);
+            newBoard = moveRight(board);
         } else return;
 
         // handle remaining tasks
-        setBoard(addTile([...newBoard]));
+        if (JSON.stringify(newBoard) !== JSON.stringify(board)) {
+            setBoard(addTile([...newBoard].map((row) => [...row])));
+            setGameover(gameover);
+        }
     };
     // ***********************************************
     useEffect(() => {
         window.addEventListener("keydown", handleKeydown);
         return () => window.removeEventListener("keydown", handleKeydown);
-    }, []);
+    }, [board]);
     return (
         <div className="container">
             <h1>2048 Board game</h1>
