@@ -93,13 +93,13 @@ const moveDown = (board) => {
     return transpose(newBoard);
 };
 
-const isGameOver = () => {
+const isGameOver = (board) => {
     for (let i = 0; i < N; i++) {
         for (let j = 0; j < N; j++) {
             if (
-                board[i][j] == 0 ||
-                (i > 0 && board[i - 1][j] == board[i][j]) ||
-                (j > 0 && board[i][j - 1] == board[i][j])
+                board[i][j] === 0 ||
+                (i > 0 && board[i - 1][j] === board[i][j]) ||
+                (j > 0 && board[i][j - 1] === board[i][j])
             )
                 return false;
         }
@@ -137,8 +137,8 @@ export default function App() {
         // handle remaining tasks
         if (JSON.stringify(newBoard) !== JSON.stringify(board)) {
             setBoard(addTile([...newBoard].map((row) => [...row])));
-            setGameover(isGameOver);
         }
+        setGameover(isGameOver(board));
     };
 
     useEffect(() => {
@@ -158,7 +158,25 @@ export default function App() {
                 ))}
             </div>
 
-            {!gameover && <h4 className="game-over">Game Over</h4>}
+            {gameover && (
+                <>
+                    <h4 className="game-over">Game Over</h4>
+                    <button
+                        className="reset"
+                        onClick={() => {
+                            setBoard(() => {
+                                let b = generateBoard();
+                                b = addTile(b);
+                                b = addTile(b);
+                                return b;
+                            });
+                            setGameover(false);
+                        }}
+                    >
+                        Restart
+                    </button>
+                </>
+            )}
         </div>
     );
 }
