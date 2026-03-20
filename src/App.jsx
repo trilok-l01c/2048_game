@@ -21,9 +21,7 @@ const addTile = (board) => {
     board[tile[0]][tile[1]] = Math.random() >= 0.9 ? 4 : 2;
     return board;
 };
-// **************** tasks *********************
 
-// compress, merge, transpose, reverse
 const compress = (board) => {
     const newBoard = generateBoard();
     // compressing to the left
@@ -140,7 +138,7 @@ export default function App() {
         // handle remaining tasks
         if (JSON.stringify(newBoard) !== JSON.stringify(board)) {
             setBoard(addTile([...newBoard].map((row) => [...row])));
-            setGameover(gameover);
+            // setGameover(isGameOver);
         }
     };
     // ***********************************************
@@ -160,6 +158,8 @@ export default function App() {
                     </div>
                 ))}
             </div>
+
+            {gameover && <h4 className="game-over">Game Over</h4>}
         </div>
     );
 }
