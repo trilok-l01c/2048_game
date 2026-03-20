@@ -1,6 +1,6 @@
 :root {
     /* Changing colors */
-    --board-bg: #5a801c;
+    --board-bg: #7a6f47;
     --cell-0-bg: #f4f2a0;
     --cell-2-bg: #e1e882;
     --cell-4-bg: #d9ed92;
@@ -115,13 +115,13 @@ h1 {
     margin-top: 15px;
 }
 
-.restart {
+.reset {
     margin-top: 15px;
     padding: 10px 20px;
-    font-size: 16px;
+    font-size: 20px;
     cursor: pointer;
-    background: #8f7a66;
-    color: white;
+    background: #c1be58;
+    color: rgb(67, 63, 63);
     border: none;
     border-radius: 5px;
 }
