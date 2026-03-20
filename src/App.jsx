@@ -115,8 +115,7 @@ export default function App() {
         return b;
     });
     const [gameover, setGameover] = useState(false);
-    // ******** Working area *************************
-    // handle key down
+
     const handleKeydown = (e) => {
         if (gameover) return;
         const key = e.key;
@@ -138,14 +137,14 @@ export default function App() {
         // handle remaining tasks
         if (JSON.stringify(newBoard) !== JSON.stringify(board)) {
             setBoard(addTile([...newBoard].map((row) => [...row])));
-            // setGameover(isGameOver);
+            setGameover(isGameOver);
         }
     };
-    // ***********************************************
+
     useEffect(() => {
         window.addEventListener("keydown", handleKeydown);
         return () => window.removeEventListener("keydown", handleKeydown);
-    }, [board]);
+    }, [board, gameover]);
     return (
         <div className="container">
             <h1>2048 Board game</h1>
@@ -159,7 +158,7 @@ export default function App() {
                 ))}
             </div>
 
-            {gameover && <h4 className="game-over">Game Over</h4>}
+            {!gameover && <h4 className="game-over">Game Over</h4>}
         </div>
     );
 }

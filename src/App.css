@@ -1,6 +1,6 @@
 :root {
     /* Changing colors */
-    --board-bg: #bbada0;
+    --board-bg: #5a801c;
     --cell-0-bg: #f4f2a0;
     --cell-2-bg: #e1e882;
     --cell-4-bg: #d9ed92;
@@ -111,7 +111,7 @@ h1 {
 .game-over {
     font-size: 30px;
     font-weight: 800;
-    color: red;
+    color: rgb(212, 115, 115);
     margin-top: 15px;
 }
 
